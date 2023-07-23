@@ -1,15 +1,19 @@
 {
   "name": "hub",
   "version": "1.0.0",
-  "description": "",
+  "description": "a hub for studying node",
   "main": "./src/main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "hub"
+  ],
+  "author": "tutu",
+  "license": "MIT",
   "dependencies": {
-    "koa": "^2.14.2"
+    "@types/node": "^20.4.4",
+    "koa": "^2.14.2",
+    "typescript": "^5.1.6"
   }
 }
