@@ -12,6 +12,9 @@
       "./tsconfig.json"
     ]
   },
+  "ignorePatterns": [
+    "commitlint.config.js"
+  ],
   "plugins": [
     "@typescript-eslint"
   ],
