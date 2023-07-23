@@ -1,12 +1,6 @@
-import Koa from 'koa'
+const app = require('./app')
+const config = require('./app/config')
 
-const app = new Koa()
-const msg: string = 'Hello World'
-
-app.use(async (ctx: Koa.Context): Promise<void> => {
-  ctx.body = msg
-})
-
-app.listen(7000, () => {
-  console.log('服务器已开启')
+app.listen(config.APP_PORT, () => {
+  console.log(`服务器已开启在${config.APP_PORT as number}端口上`)
 })
