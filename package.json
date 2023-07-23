@@ -8,7 +8,8 @@
     "clean": "del-cli ./dist/**",
     "compile": "tsc",
     "build": "npm-run-all clean compile",
-    "start": "node ."
+    "start": "node .",
+    "nodemon": "nodemon  -e  ts,tsx  --exec ts-node ./src/main.ts"
   },
   "keywords": [
     "hub"
@@ -32,6 +33,7 @@
     "@typescript-eslint/parser": "^6.1.0",
     "del-cli": "^5.0.0",
     "eslint": "^8.45.0",
+    "nodemon": "^3.0.1",
     "npm-run-all": "^4.1.5",
     "rimraf": "^5.0.1",
     "ts-node-dev": "^2.0.0",
