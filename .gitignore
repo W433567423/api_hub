@@ -8,3 +8,6 @@ dist
 
 *.local
 *.code-workspace
+
+# 个人忽略
+.env
