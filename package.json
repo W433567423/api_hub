@@ -19,6 +19,7 @@
   "author": "tutu",
   "license": "MIT",
   "dependencies": {
+    "@types/koa-router": "^7.4.4",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "dotenv": "^16.3.1",
     "eslint": "^8.45.0",
@@ -27,6 +28,7 @@
     "eslint-plugin-n": "^16.0.1",
     "eslint-plugin-promise": "^6.1.1",
     "koa": "^2.14.2",
+    "koa-router": "^12.0.0",
     "typescript": "^5.1.6"
   },
   "devDependencies": {
