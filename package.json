@@ -19,8 +19,6 @@
   "author": "tutu",
   "license": "MIT",
   "dependencies": {
-    "@types/koa-router": "^7.4.4",
-    "@typescript-eslint/eslint-plugin": "^5.62.0",
     "dotenv": "^16.3.1",
     "eslint": "^8.45.0",
     "eslint-config-standard-with-typescript": "latest",
@@ -28,12 +26,15 @@
     "eslint-plugin-n": "^16.0.1",
     "eslint-plugin-promise": "^6.1.1",
     "koa": "^2.14.2",
+    "koa-bodyparser": "^4.4.1",
     "koa-router": "^12.0.0",
+    "mysql2": "^3.5.2",
     "typescript": "^5.1.6"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.7",
     "@commitlint/config-conventional": "^17.6.7",
+    "@types/koa-router": "^7.4.4",
     "@types/koa": "^2.13.6",
     "@types/node": "^20.4.4",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
