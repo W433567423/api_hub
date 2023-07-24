@@ -13,11 +13,11 @@ class UserController {
     // 获取用户请求得到参数
     const user = ctx.request.body
 
-    // 查询数据
-    const res = await service.create(user)
+    // 将用户保存到数据库
+    await service.create(user)
 
     // 返回数据
-    ctx.body = { res }
+    ctx.body = { msg: 'user regist ok' }
   }
 }
 
