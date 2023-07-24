@@ -16,7 +16,10 @@
     "@typescript-eslint"
   ],
   "rules": {
+    // 允许require
     "@typescript-eslint/no-var-requires": 0,
-    "@typescript-eslint/ban-ts-comment": 0
+    "@typescript-eslint/ban-ts-comment": 0,
+    // 允许any
+    "@typescript-eslint/no-explicit-any": 0
   }
 }
