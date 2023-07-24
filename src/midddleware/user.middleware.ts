@@ -2,6 +2,7 @@ import { type ILoginParams } from '../service/type'
 
 const errorType = require('../constants/error-types')
 const service = require('../service/user.service')
+const { md5Password } = require('../utils/password-handle')
 
 /**
  * DONE
@@ -30,6 +31,20 @@ const verifyUser = async (ctx, next) => {
   await next()
 }
 
+/**
+ * DONE
+ * @description: 事件: 处理密码
+ * @params: {}
+ * @return: undefined
+ * @author: tutu
+ * @time: 2023/7/24 13:59
+ */
+const handlePassword = async (ctx, next) => {
+  const { password } = ctx.request.body
+  ctx.request.body.password = md5Password(password)
+  next()
+}
+
 module.exports = {
-  verifyUser
+  verifyUser, handlePassword
 }

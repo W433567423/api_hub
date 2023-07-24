@@ -17,7 +17,7 @@ class UserController {
     await service.create(user)
 
     // 返回数据
-    ctx.body = { msg: 'user regist ok' }
+    ctx.body = { msg: 'user already registered success' }
   }
 }
 
