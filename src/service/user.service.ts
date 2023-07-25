@@ -12,10 +12,10 @@ class UserService {
    * @time: 2023/7/24 12:13
    */
   async create (user: ILoginParams): Promise<string> {
-    const { name, password } = user
+    const { username, password } = user
     //   将user存储到数据库
     const sqlString = 'INSERT INTO users (name,password) VALUES(?,?);'
-    const dbRes = await db.execute(sqlString, [name, password])
+    const dbRes = await db.execute(sqlString, [username, password])
     console.log(dbRes)
     return 'tutu'
   }
@@ -28,9 +28,9 @@ class UserService {
    * @author: tutu
    * @time: 2023/7/24 12:13
    */
-  async getUserByName (name) {
+  async getUserByName (username) {
     const sqlString = 'SELECT * FROM users WHERE users.name =?;'
-    return db.execute(sqlString, [name])
+    return db.execute(sqlString, [username])
   }
 }
 

@@ -15,7 +15,7 @@ const errorHandle = (error, ctx) => {
     // 用户名或密码为空
     case errorTypes.NAME_PASSWORD_IS_REQUIRED:
       status = 400
-      message = 'name or password is undefined'
+      message = 'username or password is undefined'
       break
     // 用户名已经被使用
     case errorTypes.NAME_ALREADY_EXISTS:

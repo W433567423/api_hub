@@ -1,5 +1,5 @@
 interface ILoginParams {
-  name: string
+  username: string
   password: string
 }
 
