@@ -1,4 +1,4 @@
-const crypto = require('crypto')
+const { createHash } = require('crypto')
 
 /**
  * DONE
@@ -8,11 +8,10 @@ const crypto = require('crypto')
  * @author: tutu
  * @time: 2023/7/24 13:58
  */
-const md5Password = (password) => {
-  console.log('md5Password')
-  const md5 = crypto.createHash('md5')
-  return md5.update(password).digest('hex')
+const md5Password = (password: string) => {
+  // 仅能对字符串进行加密
+  return createHash('md5').update(password).digest('hex')
 }
 
-module.exports = { md5Password }
+module.exports = md5Password
 export {}

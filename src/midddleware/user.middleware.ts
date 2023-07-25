@@ -2,7 +2,7 @@ import { type ILoginParams } from '../service/type'
 
 const errorType = require('../constants/error-types')
 const service = require('../service/user.service')
-const { md5Password } = require('../utils/password-handle')
+const md5Password = require('../utils/password-handle')
 
 /**
  * DONE
@@ -41,8 +41,8 @@ const verifyUser = async (ctx, next) => {
  */
 const handlePassword = async (ctx, next) => {
   const { password } = ctx.request.body
-  ctx.request.body.password = md5Password(password)
-  next()
+  ctx.request.body.password = md5Password(String(password))
+  await next()
 }
 
 module.exports = {
