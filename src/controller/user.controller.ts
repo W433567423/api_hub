@@ -2,7 +2,7 @@ const service = require('../service/user.service')
 
 class UserController {
   /**
-   * TODO
+   * DONE
    * @description: 事件: 用户-注册
    * @params: {}
    * @return: undefined
