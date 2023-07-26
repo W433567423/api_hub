@@ -28,6 +28,7 @@ const verifyUser = async (ctx, next) => {
     const error = new Error(errorType.USERNAME_ALREADY_EXISTS)
     return ctx.app.emit('error', error, ctx)
   }
+
   await next()
 }
 
