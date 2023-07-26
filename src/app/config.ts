@@ -1,7 +1,12 @@
 // @ts-nocheck
 const dotenv = require('dotenv')
+const fs = require('fs')
+const path = require('path')
 
 dotenv.config()
+
+const PRIVATE_KEY = fs.readFileSync(path.resolve(__dirname, './keys/id_rsa'))
+const PUBLIC_KEY = fs.readFileSync(path.resolve(__dirname, './keys/id_rsa.pub'))
 
 const {
   APP_PORT,
@@ -18,5 +23,8 @@ module.exports = {
   MYSQL_PORT,
   MYSQL_DATABASE,
   MYSQL_USER,
-  MYSQL_PASSWORD
+  MYSQL_PASSWORD,
+
+  PRIVATE_KEY,
+  PUBLIC_KEY
 }

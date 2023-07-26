@@ -24,6 +24,7 @@ const varifyLogin = async (ctx, next) => {
     const error = new Error(errorType.PASSWORD_ERROR)
     return ctx.app.emit('error', error, ctx)
   }
+  ctx.user = dbRes[0][0]
 
   await next()
 }
