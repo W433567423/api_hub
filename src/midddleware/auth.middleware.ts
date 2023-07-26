@@ -32,13 +32,13 @@ const varifyLogin = async (ctx, next) => {
 }
 
 const varifyAuth = async (ctx, next) => {
-  const token = ctx.request.header.token
-  if (!token) {
+  const Authorization = ctx.request.headers.authorization
+  if (!Authorization) {
     const error = new Error(errorType.NO_TOKEN)
     return ctx.app.emit('error', error, ctx)
   }
   try {
-    ctx.user = jwt.verify(token, PUBLIC_KEY)
+    ctx.user = jwt.verify(Authorization.slice(7), PUBLIC_KEY)
     await next()
   } catch {
     console.log('解密失败')
