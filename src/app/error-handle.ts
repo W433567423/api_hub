@@ -13,14 +13,19 @@ const errorHandle = (error, ctx) => {
   let message: string
   switch (error.message) {
     // 用户名或密码为空
-    case errorTypes.NAME_PASSWORD_IS_REQUIRED:
+    case errorTypes.USERNAME_PASSWORD_IS_REQUIRED:
       status = 400
       message = 'username or password is undefined'
       break
     // 用户名已经被使用
-    case errorTypes.NAME_ALREADY_EXISTS:
+    case errorTypes.USERNAME_ALREADY_EXISTS:
       status = 409
       message = 'name is used'
+      break
+    // 用户不存在
+    case errorTypes.USERNAME_NOT_EXISTS:
+      status = 409
+      message = 'name is not exist'
       break
     default:
       status = 404

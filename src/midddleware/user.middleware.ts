@@ -18,14 +18,14 @@ const verifyUser = async (ctx, next) => {
 
   // 判断用户名/密码不能为空
   if (!username || !password) {
-    const error = new Error(errorType.NAME_PASSWORD_IS_REQUIRED)
+    const error = new Error(errorType.USERNAME_PASSWORD_IS_REQUIRED)
     return ctx.app.emit('error', error, ctx)
   }
 
   // 判断用户名是没有被注册过的
   const dbRes = await service.getUserByName(username)
   if (dbRes[0].length) {
-    const error = new Error(errorType.NAME_ALREADY_EXISTS)
+    const error = new Error(errorType.USERNAME_ALREADY_EXISTS)
     return ctx.app.emit('error', error, ctx)
   }
   await next()
