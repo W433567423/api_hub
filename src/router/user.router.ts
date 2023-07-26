@@ -6,7 +6,7 @@ const { verifyUser, handlePassword } = require('../midddleware/user.middleware')
 
 const userRouter = new Router({ prefix: '/users' })
 
-userRouter.post('/registry', verifyUser, handlePassword, controller.create)
+userRouter.post('/registry', verifyUser, handlePassword, controller.registry)
 
 module.exports = userRouter
 export {}

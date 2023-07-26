@@ -9,7 +9,7 @@ class UserController {
    * @author: tutu
    * @time: 2023/7/23 17:48
    */
-  async create (ctx: any): Promise<void> {
+  async registry (ctx: any): Promise<void> {
     // 获取用户请求得到参数
     const user = ctx.request.body
 
