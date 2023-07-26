@@ -38,10 +38,10 @@ const varifyAuth = async (ctx, next) => {
     return ctx.app.emit('error', error, ctx)
   }
   try {
-    ctx.user = jwt.verify(Authorization.slice(7), PUBLIC_KEY)
+    ctx.user = jwt.verify(Authorization, PUBLIC_KEY)
     await next()
   } catch {
-    console.log('解密失败')
+    console.log(Authorization, '<-token解密失败')
     const error = new Error(errorType.NO_TOKEN)
     return ctx.app.emit('error', error, ctx)
   }

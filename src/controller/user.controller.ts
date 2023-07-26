@@ -21,8 +21,7 @@ class UserController {
   }
 
   async test (ctx) {
-    console.log(ctx.user)
-    ctx.body = { ok: 'ok' }
+    ctx.body = { success: 'ok' }
   }
 }
 
