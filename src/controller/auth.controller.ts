@@ -9,8 +9,7 @@ class AuthController {
     const token = jwt.sign({ id, username }, PRIVATE_KEY, {
       expiresIn: '15d',
       algorithm: 'RS256'
-    })// RS256非对称加密(min:2048)、HS256固定密钥加密
-
+    })// RS256非对称加密(min:2048)、HS256对拆加密(固定密钥)加密
     ctx.body = {
       id,
       username,

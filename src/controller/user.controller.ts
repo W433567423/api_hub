@@ -19,6 +19,11 @@ class UserController {
     // 返回数据
     ctx.body = { msg: '注册成功' }
   }
+
+  async test (ctx) {
+    console.log(ctx.user)
+    ctx.body = { ok: 'ok' }
+  }
 }
 
 module.exports = new UserController()

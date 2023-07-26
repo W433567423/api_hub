@@ -32,6 +32,11 @@ const errorHandle = (error, ctx) => {
       status = 400
       message = 'password is error'
       break
+    // token不存在
+    case errorTypes.NO_TOKEN:
+      status = 401
+      message = 'no login'
+      break
     default:
       status = 404
       message = '未知错误'

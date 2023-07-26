@@ -1,6 +1,8 @@
 const errorType = require('../constants/error-types')
 const userService = require('../service/user.service')
 const md5Password = require('../utils/password-handle')
+const jwt = require('jsonwebtoken')
+const { PUBLIC_KEY } = require('../app/config')
 
 const varifyLogin = async (ctx, next) => {
   // 获取用户名密码
@@ -29,5 +31,21 @@ const varifyLogin = async (ctx, next) => {
   await next()
 }
 
-module.exports = { varifyLogin }
+const varifyAuth = async (ctx, next) => {
+  const token = ctx.request.header.token
+  if (!token) {
+    const error = new Error(errorType.NO_TOKEN)
+    return ctx.app.emit('error', error, ctx)
+  }
+  try {
+    ctx.user = jwt.verify(token, PUBLIC_KEY)
+    await next()
+  } catch {
+    console.log('解密失败')
+    const error = new Error(errorType.NO_TOKEN)
+    return ctx.app.emit('error', error, ctx)
+  }
+}
+
+module.exports = { varifyLogin, varifyAuth }
 export {}
