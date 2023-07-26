@@ -24,8 +24,13 @@ const errorHandle = (error, ctx) => {
       break
     // 用户不存在
     case errorTypes.USERNAME_NOT_EXISTS:
-      status = 409
+      status = 400
       message = 'name is not exist'
+      break
+    // 用户不存在
+    case errorTypes.PASSWORD_ERROR:
+      status = 400
+      message = 'password is error'
       break
     default:
       status = 404
