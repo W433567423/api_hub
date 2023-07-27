@@ -15,7 +15,13 @@ const varifyLogin = async (ctx, next) => {
   }
 
   // 判断用户名是否存在
-  const dbRes = await userService.getUserByName(username)
+  let dbRes
+  try {
+    dbRes = await userService.getUserByName(username)
+  } catch (e) {
+    const error = new Error(errorType.SQL_ERROR)
+    return ctx.app.emit('error', error, ctx)
+  }
   if (!dbRes[0].length) {
     const error = new Error(errorType.USERNAME_NOT_EXISTS)
     return ctx.app.emit('error', error, ctx)
@@ -38,7 +44,7 @@ const varifyAuth = async (ctx, next) => {
     return ctx.app.emit('error', error, ctx)
   }
   try {
-    ctx.user = jwt.verify(Authorization, PUBLIC_KEY)
+    ctx.user = jwt.verify(Authorization, PUBLIC_KEY, { algorithms: ['RS256'] })
     await next()
   } catch {
     console.log(Authorization, '<-token解密失败')

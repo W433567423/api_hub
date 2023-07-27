@@ -11,6 +11,7 @@ const errorTypes = require('../constants/error-types')
 const errorHandle = (error, ctx) => {
   let status: number
   let message: string
+  console.log('进入错误处理', error.message)
   switch (error.message) {
     // 用户名或密码为空
     case errorTypes.USERNAME_PASSWORD_IS_REQUIRED:

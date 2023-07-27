@@ -4,12 +4,14 @@ const USERNAME_NOT_EXISTS = 'username_is__not_exists'
 const PASSWORD_ERROR = 'password_is_error'
 const NO_TOKEN = 'no_token'
 const NO_CONTENT = 'no_content'
+const SQL_ERROR = 'sql_error'
 
 module.exports = {
   USERNAME_PASSWORD_IS_REQUIRED,
   USERNAME_ALREADY_EXISTS,
   USERNAME_NOT_EXISTS,
   PASSWORD_ERROR,
+  SQL_ERROR,
   NO_TOKEN,
   NO_CONTENT
 }
