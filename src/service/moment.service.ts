@@ -55,6 +55,22 @@ class MomentService {
     `
     return (await db.execute(sqlString))[0]
   }
+
+  /**
+   * DONE
+   * @description: 事件: 删除moment by id
+   * @params: {}
+   * @return: undefined
+   * @author: tutu
+   * @time: 2023/7/27 17:21
+   */
+  async delMomentById (momentId: number) {
+    const sqlString = `DELETE
+                       FROM moment
+                       WHERE moment.id = ?;
+    `
+    await db.execute(sqlString, [momentId])
+  }
 }
 
 module.exports = new MomentService()

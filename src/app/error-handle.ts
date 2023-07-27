@@ -28,7 +28,7 @@ const errorHandle = (error, ctx) => {
       status = 400
       message = '用户名不存在'
       break
-    // 用户不存在
+    // 密码错误
     case errorTypes.PASSWORD_ERROR:
       status = 400
       message = '密码错误'
@@ -38,10 +38,20 @@ const errorHandle = (error, ctx) => {
       status = 401
       message = '未登录'
       break
-    // token不存在
+    // 参数缺失
     case errorTypes.NO_PARAMS:
       status = 400
       message = '参数缺失'
+      break
+    // moment不存在
+    case errorTypes.NO_MOMENT:
+      status = 400
+      message = 'moment不存在'
+      break
+    // 权限不够
+    case errorTypes.NO_PERMISSION:
+      status = 404
+      message = '无权限操作'
       break
     default:
       status = 404
