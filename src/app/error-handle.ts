@@ -39,9 +39,9 @@ const errorHandle = (error, ctx) => {
       message = '未登录'
       break
     // token不存在
-    case errorTypes.NO_CONTENT:
+    case errorTypes.NO_PARAMS:
       status = 400
-      message = '没有content参数'
+      message = '参数缺失'
       break
     default:
       status = 404

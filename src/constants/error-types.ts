@@ -3,7 +3,7 @@ const USERNAME_ALREADY_EXISTS = 'username_is_exists'
 const USERNAME_NOT_EXISTS = 'username_is__not_exists'
 const PASSWORD_ERROR = 'password_is_error'
 const NO_TOKEN = 'no_token'
-const NO_CONTENT = 'no_content'
+const NO_PARAMS = 'no_params'
 const SQL_ERROR = 'sql_error'
 
 module.exports = {
@@ -13,6 +13,6 @@ module.exports = {
   PASSWORD_ERROR,
   SQL_ERROR,
   NO_TOKEN,
-  NO_CONTENT
+  NO_PARAMS
 }
 export {}
