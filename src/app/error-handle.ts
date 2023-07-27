@@ -20,22 +20,27 @@ const errorHandle = (error, ctx) => {
     // 用户名已经被使用
     case errorTypes.USERNAME_ALREADY_EXISTS:
       status = 409
-      message = 'name is used'
+      message = '用户名已被注册'
       break
     // 用户不存在
     case errorTypes.USERNAME_NOT_EXISTS:
       status = 400
-      message = 'name is not exist'
+      message = '用户名不存在'
       break
     // 用户不存在
     case errorTypes.PASSWORD_ERROR:
       status = 400
-      message = 'password is error'
+      message = '密码错误'
       break
     // token不存在
     case errorTypes.NO_TOKEN:
       status = 401
-      message = 'no login'
+      message = '未登录'
+      break
+    // token不存在
+    case errorTypes.NO_CONTENT:
+      status = 400
+      message = '没有content参数'
       break
     default:
       status = 404
