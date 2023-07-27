@@ -90,10 +90,10 @@ class MomentController {
       return ctx.app.emit('error', error, ctx)
     }
 
-    const data = await MomentService.updateMomentById(ctx.request.params.momentId, content)
+    const data = await MomentService.updateMomentByIdAndUserId(ctx.user.id, ctx.request.params.momentId, content)
 
     ctx.body = {
-      msg: '更新成功1', data
+      msg: '更新成功', data
     }
   }
 

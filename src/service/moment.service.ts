@@ -98,10 +98,9 @@ class MomentService {
    * @author: tutu
    * @time: 2023/7/27 18:30
    */
-  async updateMomentById (momentId: number, content: string) {
-    console.log(momentId, content)
-    const sqlString = 'UPDATE moment SET content = ? WHERE id = ?;'
-    return (await db.execute(sqlString, [content, momentId]))[0]
+  async updateMomentByIdAndUserId (userId: number, momentId: number, content: string) {
+    const sqlString = 'UPDATE moment SET content = ? WHERE id = ? AND user_id = ?;'
+    return (await db.execute(sqlString, [content, momentId, userId]))[0]
   }
 }
 
