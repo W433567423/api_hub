@@ -2,6 +2,14 @@ const errorType = require('../constants/error-types')
 const MomentService = require('../service/moment.service')
 
 class MomentController {
+  /**
+   * DONE
+   * @description: 事件: 发布moment
+   * @params: {}
+   * @return: undefined
+   * @author: tutu
+   * @time: 2023/7/27 15:50
+   */
   async publish (ctx) {
     // 获取用户数据
     const userId = ctx.user.id
