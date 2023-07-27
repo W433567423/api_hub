@@ -58,6 +58,24 @@ class MomentService {
 
   /**
    * DONE
+   * @description: 事件: 获取到moment详情 by momentId and userId
+   * @params: {}
+   * @return: undefined
+   * @author: tutu
+   * @time: 2023/7/27 17:21
+   */
+  async getMomentByIdAndUserId (momentId: number, userId: number) {
+    const sqlString = `SELECT *
+                       FROM moment
+                       WHERE moment.id = ?
+                         AND moment.user_id = ?;
+    `
+    const dbRes = await db.execute(sqlString, [momentId, userId])
+    return !!dbRes[0][0]
+  }
+
+  /**
+   * DONE
    * @description: 事件: 删除moment by id
    * @params: {}
    * @return: undefined
@@ -70,6 +88,20 @@ class MomentService {
                        WHERE moment.id = ?;
     `
     await db.execute(sqlString, [momentId])
+  }
+
+  /**
+   * DONE
+   * @description: 事件: 修改moment by momentId
+   * @params: {}
+   * @return: undefined
+   * @author: tutu
+   * @time: 2023/7/27 18:30
+   */
+  async updateMomentById (momentId: number, content: string) {
+    console.log(momentId, content)
+    const sqlString = 'UPDATE moment SET content = ? WHERE id = ?;'
+    return (await db.execute(sqlString, [content, momentId]))[0]
   }
 }
 

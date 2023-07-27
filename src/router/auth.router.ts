@@ -1,9 +1,9 @@
 const Router = require('koa-router')
 const controller = require('../controller/auth.controller')
-const { varifyLogin } = require('../midddleware/auth.middleware')
+const { verifyLogin } = require('../midddleware/auth.middleware')
 
 const authRouter = new Router()
 
-authRouter.post('/login', varifyLogin, controller.login)
+authRouter.post('/login', verifyLogin, controller.login)
 
 module.exports = authRouter

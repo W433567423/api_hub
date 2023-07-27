@@ -77,6 +77,28 @@ class MomentController {
 
   /**
    * DONE
+   * @description: 事件: 修改moment by id
+   * @params: {}
+   * @return: undefined
+   * @author: tutu
+   * @time: 2023/7/27 17:35
+   */
+  async changeMomentById (ctx) {
+    const { content } = ctx.request.body
+    if (!content) {
+      const error = new Error(errorType.NO_PARAMS)
+      return ctx.app.emit('error', error, ctx)
+    }
+
+    const data = await MomentService.updateMomentById(ctx.request.params.momentId, content)
+
+    ctx.body = {
+      msg: '更新成功1', data
+    }
+  }
+
+  /**
+   * DONE
    * @description: 事件: 某用户删除他的moment by id
    * @params: {}
    * @return: undefined
@@ -84,26 +106,8 @@ class MomentController {
    * @time: 2023/7/27 17:07
    */
   async delMomentById (ctx) {
-    // 取参
-    const userId = ctx.user.id
-    const momentId = ctx.request.body.momentId
-    if (!momentId) {
-      const error = new Error(errorType.NO_PARAMS)
-      return ctx.app.emit('error', error, ctx)
-    }
-    // 拿到该动态
-    const momentDetail = await MomentService.getMomentDetailById(momentId)
-    if (!momentDetail) {
-      const error = new Error(errorType.NO_MOMENT)
-      return ctx.app.emit('error', error, ctx)
-    }
-
-    // 校验删除者是否为动态发布着
-    if (momentDetail?.user?.userId !== userId) {
-      const error = new Error(errorType.NO_PERMISSION)
-      return ctx.app.emit('error', error, ctx)
-    }
     // 删除
+    const momentId = ctx.request.params.momentId
     await MomentService.delMomentById(momentId)
 
     ctx.body = {
