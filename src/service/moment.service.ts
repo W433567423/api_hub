@@ -1,5 +1,14 @@
 const db = require('../app/database')
 
+const sqlFragament = `
+  SELECT m.id      AS                                        id,
+         m.content AS                                        content,
+         m.createAt                                          createTime,
+         m.updateAt                                          updateTime,
+         JSON_OBJECT('userId', u.id, 'username', u.username) user
+  FROM moment m
+         LEFT JOIN user u ON m.user_id = u.id`
+
 class MomentService {
   /**
    * DONE
@@ -25,14 +34,7 @@ class MomentService {
    */
 
   async getMomentDetailById (momentId: number) {
-    const sqlString = `
-      SELECT m.id      AS                                        id,
-             m.content AS                                        content,
-             m.createAt                                          createTime,
-             m.updateAt                                          updateTime,
-             JSON_OBJECT('userId', u.id, 'username', u.username) user
-      FROM moment m
-             LEFT JOIN user u ON m.user_id = u.id
+    const sqlString = `${sqlFragament}
       WHERE m.id = ?;
     `
     return (await db.execute(sqlString, [momentId]))[0][0]
@@ -48,14 +50,7 @@ class MomentService {
    */
 
   async getMomentDetailByIds (page: number, limit: number) {
-    const sqlString = `
-      SELECT m.id      AS                                        id,
-             m.content AS                                        content,
-             m.createAt                                          createTime,
-             m.updateAt                                          updateTime,
-             JSON_OBJECT('userId', u.id, 'username', u.username) USER
-      FROM moment m
-             LEFT JOIN USER u ON m.user_id = u.id
+    const sqlString = `${sqlFragament}
       LIMIT ${page}, ${limit};
     `
     return (await db.execute(sqlString))[0]
