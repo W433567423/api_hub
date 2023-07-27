@@ -34,7 +34,7 @@ class MomentController {
 
   /**
    * DONE
-   * @description: 事件: 通过momentId获得动态
+   * @description: 事件: 通过momentId获得moment
    * @params: {}
    * @return: undefined
    * @author: tutu
@@ -47,6 +47,28 @@ class MomentController {
     }
     try {
       ctx.body = { msg: await MomentService.getMomentDetailById(Number(ctx.params.momentId)) }
+    } catch {
+      const error = new Error(errorType.SQL_ERROR)
+      return ctx.app.emit('error', error, ctx)
+    }
+  }
+
+  /**
+   * DONE
+   * @description: 事件: 通过momentId获得moment列表
+   * @params: {}
+   * @return: undefined
+   * @author: tutu
+   * @time: 2023/7/27 16:29
+   */
+  async getMomentDetailByIds (ctx) {
+    const { limit, page } = ctx.request.query
+    if (!limit || !page) {
+      const error = new Error(errorType.NO_PARAMS)
+      return ctx.app.emit('error', error, ctx)
+    }
+    try {
+      ctx.body = { msg: await MomentService.getMomentDetailByIds(Number(page), Number(limit)) }
     } catch {
       const error = new Error(errorType.SQL_ERROR)
       return ctx.app.emit('error', error, ctx)

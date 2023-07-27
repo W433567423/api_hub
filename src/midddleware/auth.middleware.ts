@@ -37,7 +37,7 @@ const varifyLogin = async (ctx, next) => {
   await next()
 }
 
-const varifyAuth = async (ctx, next) => {
+const verifyAuth = async (ctx, next) => {
   const Authorization = ctx.request.headers.authorization
   if (!Authorization) {
     const error = new Error(errorType.NO_TOKEN)
@@ -53,5 +53,5 @@ const varifyAuth = async (ctx, next) => {
   }
 }
 
-module.exports = { varifyLogin, varifyAuth }
+module.exports = { varifyLogin, verifyAuth }
 export {}
