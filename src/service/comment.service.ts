@@ -20,6 +20,14 @@ class CommentService {
     }
   }
 
+  /**
+   * DONE
+   * @description: 事件:  修改comment by id and userId
+   * @params: {}
+   * @return: undefined
+   * @author: tutu
+   * @time: 2023/7/28 10:56
+   */
   async getCommentByIdAndUserId (userId: string, commentId: string) {
     const sqlString = `SELECT *
                        FROM comment
@@ -30,10 +38,34 @@ class CommentService {
     return !!dbRes[0][0]
   }
 
-  async changeComment (commentId: string, content: string) {
+  /**
+   * DONE
+   * @description: 事件: 修改comment by id
+   * @params: {}
+   * @return: undefined
+   * @author: tutu
+   * @time: 2023/7/28 10:56
+   */
+  async changeCommentbyId (commentId: string, content: string) {
     console.log(content, commentId)
     const sqlString = 'UPDATE  comment SET content = ? WHERE id = ?;'
     return (await db.execute(sqlString, [content, commentId]))[0]
+  }
+
+  /**
+   * DONE
+   * @description: 事件: 删除comment by id
+   * @params: {}
+   * @return: undefined
+   * @author: tutu
+   * @time: 2023/7/28 10:55
+   */
+  async delCommentById (commentId: number) {
+    const sqlString = `DELETE
+                       FROM comment
+                       WHERE comment.id = ?;
+    `
+    await db.execute(sqlString, [commentId])
   }
 }
 
