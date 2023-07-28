@@ -1,29 +1,13 @@
 const db = require('../app/database')
 
 class MomentService {
-  /**
-   * DONE
-   * @description: 事件: 插入数据到数据库
-   * @params: {}
-   * @return: undefined
-   * @author: tutu
-   * @time: 2023/7/27 15:19
-   */
-
+  // 插入数据到数据库
   async insertData (userId: string, content: string) {
     const sqlString = 'INSERT INTO moment (user_id,content) VALUES(?,?);'
     await db.execute(sqlString, [userId, content])
   }
 
-  /**
-   * DONE
-   * @description: 事件: 插入数据到数据库
-   * @params: {}
-   * @return: undefined
-   * @author: tutu
-   * @time: 2023/7/27 15:19
-   */
-
+  // 插入数据到数据库
   async getMomentDetailById (momentId: number) {
     const sqlString = `
       SELECT m.id      AS                                        id,
@@ -45,15 +29,7 @@ class MomentService {
     return (await db.execute(sqlString))[0][0]
   }
 
-  /**
-   * DONE
-   * @description: 事件: 获取moment列表
-   * @params: {}
-   * @return: undefined
-   * @author: tutu
-   * @time: 2023/7/27 15:19
-   */
-
+  // 获取moment列表
   async getMomentDetailByIds (page: number, limit: number) {
     const sqlString = `
       SELECT m.id      AS                                              id,
@@ -69,14 +45,7 @@ class MomentService {
     return (await db.execute(sqlString))[0]
   }
 
-  /**
-   * DONE
-   * @description: 事件: 获取到moment详情 by momentId and userId
-   * @params: {}
-   * @return: undefined
-   * @author: tutu
-   * @time: 2023/7/27 17:21
-   */
+  // 获取到moment详情 by momentId and userId
   async getMomentByIdAndUserId (momentId: number, userId: number) {
     const sqlString = `SELECT *
                        FROM moment
@@ -87,14 +56,7 @@ class MomentService {
     return !!dbRes[0][0]
   }
 
-  /**
-   * DONE
-   * @description: 事件: 删除moment by id
-   * @params: {}
-   * @return: undefined
-   * @author: tutu
-   * @time: 2023/7/27 17:21
-   */
+  // 删除moment by id
   async delMomentById (momentId: number) {
     const sqlString = `DELETE
                        FROM moment
@@ -103,14 +65,7 @@ class MomentService {
     await db.execute(sqlString, [momentId])
   }
 
-  /**
-   * DONE
-   * @description: 事件: 修改moment by momentId
-   * @params: {}
-   * @return: undefined
-   * @author: tutu
-   * @time: 2023/7/27 18:30
-   */
+  // 修改moment by momentId
   async updateMomentByIdAndUserId (userId: number, momentId: number, content: string) {
     const sqlString = 'UPDATE moment SET content = ? WHERE id = ? AND user_id = ?;'
     return (await db.execute(sqlString, [content, momentId, userId]))[0]

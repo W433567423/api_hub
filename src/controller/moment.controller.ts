@@ -114,6 +114,25 @@ class MomentController {
       msg: '删除成功'
     }
   }
+
+  /**
+   * DONE
+   * @description: 事件: 给moment新增标签
+   * @params: {}
+   * @return: undefined
+   * @author: tutu
+   * @time: 2023/7/28 17:19
+   */
+  async addLabels (ctx) {
+    // const { momentId } = ctx.params
+    const { labels } = ctx.request.body
+
+    if (!labels) {
+      const error = new Error(errorType.NO_PARAMS)
+      return ctx.app.emit('error', error, ctx)
+    }
+    ctx.body = { msg: `新增标签<${labels}>成功` }
+  }
 }
 
 module.exports = new MomentController()
