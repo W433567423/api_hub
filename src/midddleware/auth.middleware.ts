@@ -39,7 +39,7 @@ const verifyLogin = async (ctx, next) => {
 }
 
 const verifyAuth = async (ctx, next) => {
-  const Authorization = ctx.request.headers.authorization.replaceAll(' ', '')
+  const Authorization = ctx.request.headers.authorization?.replaceAll(' ', '')
   if (!Authorization) {
     const error = new Error(errorType.NO_TOKEN)
     return ctx.app.emit('error', error, ctx)
