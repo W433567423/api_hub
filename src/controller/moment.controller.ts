@@ -4,7 +4,7 @@ const MomentService = require('../service/moment.service')
 class MomentController {
   /**
    * DONE
-   * @description: 事件: 发布moment
+   * @description: 事件: 发布moment 详情
    * @params: {}
    * @return: undefined
    * @author: tutu
@@ -34,7 +34,7 @@ class MomentController {
 
   /**
    * DONE
-   * @description: 事件: 通过momentId获得moment
+   * @description: 事件: 通过momentId获得moment 详情
    * @params: {}
    * @return: undefined
    * @author: tutu

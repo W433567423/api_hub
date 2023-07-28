@@ -53,6 +53,11 @@ const errorHandle = (error, ctx) => {
       status = 404
       message = '无权限操作'
       break
+    // 权限不够
+    case errorTypes.SQL_ERROR:
+      status = 502
+      message = '服务器内部错误(SQL语句出错)'
+      break
     default:
       status = 404
       message = '未知错误'

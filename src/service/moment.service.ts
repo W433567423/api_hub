@@ -1,14 +1,5 @@
 const db = require('../app/database')
 
-const sqlFragament = `
-  SELECT m.id      AS                                        id,
-         m.content AS                                        content,
-         m.createAt                                          createTime,
-         m.updateAt                                          updateTime,
-         JSON_OBJECT('userId', u.id, 'username', u.username) user
-  FROM moment m
-         LEFT JOIN user u ON m.user_id = u.id`
-
 class MomentService {
   /**
    * DONE
@@ -34,15 +25,29 @@ class MomentService {
    */
 
   async getMomentDetailById (momentId: number) {
-    const sqlString = `${sqlFragament}
-      WHERE m.id = ?;
+    const sqlString = `
+      SELECT m.id      AS                                        id,
+             m.content AS                                        content,
+             m.createAt                                          createTime,
+             m.updateAt                                          updateTime,
+             JSON_OBJECT('userId', u.id, 'username', u.username) author,
+             JSON_ARRAYAGG(
+               JSON_OBJECT('id', c.id, 'content', c.content, 'createTime', c.createAt, 'commentUser',
+                           JSON_OBJECT('userId', cu.id, 'username', cu.username))
+               )                                                 comments
+
+      FROM moment m
+             LEFT JOIN user u ON m.user_id = u.id
+             LEFT JOIN comment c ON c.moment_id = m.id
+             LEFT JOIN user cu ON cu.id = c.user_id
+      WHERE m.id = ${momentId};
     `
-    return (await db.execute(sqlString, [momentId]))[0][0]
+    return (await db.execute(sqlString))[0][0]
   }
 
   /**
    * DONE
-   * @description: 事件: 插入数据到数据库
+   * @description: 事件: 获取moment列表
    * @params: {}
    * @return: undefined
    * @author: tutu
@@ -50,7 +55,15 @@ class MomentService {
    */
 
   async getMomentDetailByIds (page: number, limit: number) {
-    const sqlString = `${sqlFragament}
+    const sqlString = `
+      SELECT m.id      AS                                              id,
+             m.content AS                                              content,
+             m.createAt                                                createTime,
+             m.updateAt                                                updateTime,
+             (SELECT COUNT(*) from comment c where c.moment_id = m.id) commentCount,
+             JSON_OBJECT('userId', u.id, 'username', u.username)       user
+      FROM moment m
+             LEFT JOIN user u ON m.user_id = u.id
       LIMIT ${page}, ${limit};
     `
     return (await db.execute(sqlString))[0]
