@@ -67,6 +67,28 @@ class CommentService {
     `
     await db.execute(sqlString, [commentId])
   }
+
+  /**
+   * DONE
+   * @description: 事件: 获得comments by momentId
+   * @params: {}
+   * @return: undefined
+   * @author: tutu
+   * @time: 2023/7/28 16:16
+   */
+  async getCommentsByMomentId (momentId: string) {
+    const sqlString = `
+      SELECT c.id,
+             c.content,
+             c.comment_id,
+             c.createAt                                  createTime,
+             JSON_OBJECT('id', u.id, 'name', u.username) publishAuthor
+      FROM comment c
+             LEFT JOIN USER u ON u.id = c.user_id
+      WHERE c.moment_id = 1;
+    `
+    return (await db.execute(sqlString, [momentId]))[0]
+  }
 }
 
 module.exports = new CommentService()

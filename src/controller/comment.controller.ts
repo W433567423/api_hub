@@ -96,6 +96,23 @@ class CommentController {
       ctx.app.emit('error', error, ctx)
     }
   }
+
+  /**
+   * DONE
+   * @description: 事件: 获取Comments by id
+   * @params: {}
+   * @return: undefined
+   * @author: tutu
+   * @time: 2023/7/28 16:14
+   */
+  async getCommentsById (ctx) {
+    const { momentId } = ctx.params
+    if (!momentId) {
+      const error = new Error(errorType.NO_PARAMS)
+      ctx.app.emit('error', error, ctx)
+    }
+    ctx.body = { msg: '查询comments成功', data: await CommentService.getCommentsByMomentId(momentId) }
+  }
 }
 
 module.exports = new CommentController()

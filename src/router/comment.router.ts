@@ -10,5 +10,7 @@ commentRouter.post('/reply', verifyAuth, controller.reply)
 commentRouter.patch('/changeComment/:commentId', verifyAuth, verifyPermission('comment'), controller.changeCommentById)
 commentRouter.delete('/deleteComment/:commentId', verifyAuth, verifyPermission('comment'), controller.deleteCommentById)
 
+commentRouter.get('/:momentId', controller.getCommentsById)
+
 module.exports = commentRouter
 export {}
