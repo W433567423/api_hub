@@ -100,23 +100,5 @@ const verifyPermission = (tableName) => {
   }
 }
 
-// const verifyPermissionComment = async (ctx, next) => { // 取参
-//   const commentId = ctx.request.params.commentId
-//   const userId = ctx.user.id
-//   if (!commentId) {
-//     const error = new Error(errorType.NO_PARAMS)
-//     return ctx.app.emit('error', error, ctx)
-//   }
-//
-//   // 拿到该动态
-//   const isPermission = await CommentService.getCommentByIdAndUserId(userId, commentId)
-//   if (!isPermission) {
-//     const error = new Error(errorType.NO_PERMISSION)
-//     return ctx.app.emit('error', error, ctx)
-//   }
-//
-//   await next()
-// }
-
 module.exports = { verifyLogin, verifyAuth, verifyPermission }
 export {}
