@@ -1,6 +1,7 @@
 const errorType = require('../constants/error-types')
 const userService = require('../service/user.service')
 const MomentService = require('../service/moment.service')
+const CommentService = require('../service/comment.service')
 const md5Password = require('../utils/password-handle')
 const jwt = require('jsonwebtoken')
 const { PUBLIC_KEY } = require('../app/config')
@@ -55,24 +56,67 @@ const verifyAuth = async (ctx, next) => {
   }
 }
 
-const verifyPermission = async (ctx, next) => {
-  // 取参
-  const momentId = ctx.request.params.momentId
-  const userId = ctx.user.id
-  if (!momentId) {
-    const error = new Error(errorType.NO_PARAMS)
-    return ctx.app.emit('error', error, ctx)
-  }
+const verifyPermission = (tableName) => {
+  switch (tableName) {
+    case 'comment':
+      return async (ctx, next) => { // 取参
+        const commentId = ctx.request.params.commentId
+        const userId = ctx.user.id
+        if (!commentId) {
+          const error = new Error(errorType.NO_PARAMS)
+          return ctx.app.emit('error', error, ctx)
+        }
 
-  // 拿到该动态
-  const isPermission = await MomentService.getMomentByIdAndUserId(momentId, userId)
-  if (!isPermission) {
-    const error = new Error(errorType.NO_PERMISSION)
-    return ctx.app.emit('error', error, ctx)
-  }
+        // 拿到该动态
+        const isPermission = await CommentService.getCommentByIdAndUserId(userId, commentId)
+        if (!isPermission) {
+          const error = new Error(errorType.NO_PERMISSION)
+          return ctx.app.emit('error', error, ctx)
+        }
 
-  await next()
+        await next()
+      }
+    case 'moment':
+      return async (ctx, next) => {
+        // 取参
+        const momentId = ctx.request.params.momentId
+        const userId = ctx.user.id
+        if (!momentId) {
+          const error = new Error(errorType.NO_PARAMS)
+          return ctx.app.emit('error', error, ctx)
+        }
+
+        // 拿到该动态
+        const isPermission = await MomentService.getMomentByIdAndUserId(momentId, userId)
+        if (!isPermission) {
+          const error = new Error(errorType.NO_PERMISSION)
+          return ctx.app.emit('error', error, ctx)
+        }
+
+        await next()
+      }
+    default:
+      console.log('校验权限异常')
+  }
 }
+
+// const verifyPermissionComment = async (ctx, next) => { // 取参
+//   const commentId = ctx.request.params.commentId
+//   const userId = ctx.user.id
+//   if (!commentId) {
+//     const error = new Error(errorType.NO_PARAMS)
+//     return ctx.app.emit('error', error, ctx)
+//   }
+//
+//   // 拿到该动态
+//   const isPermission = await CommentService.getCommentByIdAndUserId(userId, commentId)
+//   if (!isPermission) {
+//     const error = new Error(errorType.NO_PERMISSION)
+//     return ctx.app.emit('error', error, ctx)
+//   }
+//
+//   await next()
+// }
 
 module.exports = { verifyLogin, verifyAuth, verifyPermission }
 export {}

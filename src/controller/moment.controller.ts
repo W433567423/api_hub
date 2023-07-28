@@ -93,7 +93,7 @@ class MomentController {
     const data = await MomentService.updateMomentByIdAndUserId(ctx.user.id, ctx.request.params.momentId, content)
 
     ctx.body = {
-      msg: '更新成功', data
+      msg: '更新moment成功', data
     }
   }
 

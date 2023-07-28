@@ -51,6 +51,31 @@ class CommentController {
       ctx.app.emit('error', error, ctx)
     }
   }
+
+  /**
+   * DONE
+   * @description: 事件: 修改comment by id
+   * @params: {}
+   * @return: undefined
+   * @author: tutu
+   * @time: 2023/7/28 10:21
+   */
+  async changeCommentById (ctx) {
+    const { commentId } = ctx.params
+    const { content } = ctx.request.body
+    if (!content) {
+      const error = new Error(errorType.NO_PARAMS)
+      ctx.app.emit('error', error, ctx)
+    }
+    try {
+      const dbRes = await CommentService.changeComment(commentId, content)
+      // 获取用户数据
+      ctx.body = { msg: '修改comment成功', data: dbRes }
+    } catch (e) {
+      const error = new Error(errorType.SQL_ERROR)
+      ctx.app.emit('error', error, ctx)
+    }
+  }
 }
 
 module.exports = new CommentController()

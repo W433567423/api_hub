@@ -7,8 +7,8 @@ const momentRouter = new Router({ prefix: '/moment' })
 momentRouter.post('/publish', verifyAuth, controller.publish)
 momentRouter.get('/:momentId', controller.getMomentDetailById)
 momentRouter.post('/getMomentDetailList', controller.getMomentDetailByIds)
-momentRouter.patch('/changeMomentDetail/:momentId', verifyAuth, verifyPermission, controller.changeMomentById)
-momentRouter.post('/delMoment/:momentId', verifyAuth, verifyPermission, controller.delMomentById)
+momentRouter.patch('/changeMomentDetail/:momentId', verifyAuth, verifyPermission('moment'), controller.changeMomentById)
+momentRouter.post('/delMoment/:momentId', verifyAuth, verifyPermission('moment'), controller.delMomentById)
 
 module.exports = momentRouter
 export {}
