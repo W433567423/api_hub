@@ -48,8 +48,8 @@ class CommentService {
              c.createAt                                  createTime,
              JSON_OBJECT('id', u.id, 'name', u.username) publishAuthor
       FROM comment c
-             LEFT JOIN USER u ON u.id = c.user_id
-      WHERE c.moment_id = 1;
+             LEFT JOIN user u ON u.id = c.user_id
+      WHERE c.moment_id = ?;
     `
     return (await db.execute(sqlString, [momentId]))[0]
   }
