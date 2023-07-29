@@ -3,13 +3,19 @@ const LabelService = require('../service/label.service')
 
 const isExistLabels = async (ctx, next) => {
   const { labels } = ctx.request.body
-  for (const label of labels) {
-    const isExist = await LabelService.isLabelExist(String(label))
-    if (!isExist) {
-      console.log(
-        await LabelService.newLabel(String(label)))
+  const tags: any[] = []
+  for (const item of labels) {
+    const dbRes = await LabelService.getLabelByTitle(String(item))
+    if (!dbRes) {
+      const insertId = await LabelService.newLabel(String(item))
+      const tag = { id: insertId, title: item }
+      tags.push(tag)
+    } else {
+      const { id, title } = dbRes
+      tags.push({ id, title })
     }
   }
+  console.log('\n', tags)
   await next()
 }
 

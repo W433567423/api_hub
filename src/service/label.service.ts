@@ -18,6 +18,14 @@ class LabelService {
     return !!((await db.execute(sqlString, [label]))[0].length)
   }
 
+  async getLabelByTitle (label: string) {
+    const sqlString = `
+      SELECT *
+      FROM label
+      WHERE title = ?;`
+    return (await db.execute(sqlString, [label]))[0][0]
+  }
+
   // 给moment添加多个标签
   async addLabelsToMomentId (labels: string[]) {
     const sqlString = `${labels}`
