@@ -87,13 +87,14 @@ class MomentController {
      * @time: 2023/7/27 17:35
      */
   async changeMomentById (ctx) {
+    const { momentId }: { momentId: number } = ctx.request.params
     const { content }: { content: string | undefined } = ctx.request.body
     if (!content) {
       const error = new Error(errorType.NO_PARAMS)
       return ctx.app.emit('error', error, ctx)
     }
 
-    const data = await MomentService.updateMomentByIdAndUserId(ctx.user.id, ctx.request.params.momentId, content)
+    const data = await MomentService.updateMomentByIdAndUserId(ctx.user.id, momentId, content)
 
     ctx.body = {
       msg: '更新moment成功', data
@@ -110,7 +111,7 @@ class MomentController {
      */
   async delMomentById (ctx) {
     // 删除
-    const momentId: number | undefined = ctx.request.params.momentId
+    const { momentId }: { momentId: number | undefined } = ctx.request.params
     if (!momentId) {
       const error = new Error(errorType.NO_PARAMS)
       return ctx.app.emit('error', error, ctx)
