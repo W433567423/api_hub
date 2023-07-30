@@ -13,7 +13,7 @@ class CommentService {
   }
 
   // 修改comment by id and userId
-  async getCommentByIdAndUserId (userId: string, commentId: string) {
+  async getCommentByIdAndUserId (userId: number, commentId: number) {
     const sqlString = `SELECT *
                            FROM comment
                            WHERE comment.id = ?

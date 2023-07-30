@@ -1,14 +1,16 @@
+import { type IUser } from '../service/type'
+
+const jwt = require('jsonwebtoken')
 const errorType = require('../constants/error-types')
 const userService = require('../service/user.service')
 const MomentService = require('../service/moment.service')
 const CommentService = require('../service/comment.service')
 const md5Password = require('../utils/password-handle')
-const jwt = require('jsonwebtoken')
 const { PUBLIC_KEY } = require('../app/config')
 
-const verifyLogin = async (ctx, next) => {
+const verifyLogin = async (ctx: any, next: any) => {
   // 获取用户名密码
-  const { username, password } = ctx.request.body
+  const { username, password }: { username: string | undefined, password: string | undefined } = ctx.request.body
 
   // 判断用户名密码为空
   if (!username || !password) {
@@ -17,7 +19,7 @@ const verifyLogin = async (ctx, next) => {
   }
 
   // 判断用户名是否存在
-  let dbRes
+  let dbRes: any
   try {
     dbRes = await userService.getUserByName(username)
   } catch (e) {
@@ -39,8 +41,8 @@ const verifyLogin = async (ctx, next) => {
   await next()
 }
 
-const verifyAuth = async (ctx, next) => {
-  const Authorization = ctx.request.headers.authorization?.replaceAll(' ', '')
+const verifyAuth = async (ctx: any, next: any) => {
+  const Authorization: string | undefined = ctx.request.headers.authorization?.replaceAll(' ', '')
   if (!Authorization) {
     const error = new Error(errorType.NO_TOKEN)
     return ctx.app.emit('error', error, ctx)
@@ -56,12 +58,12 @@ const verifyAuth = async (ctx, next) => {
   }
 }
 
-const verifyPermission = (tableName) => {
+const verifyPermission = (tableName: string) => {
   switch (tableName) {
     case 'comment':
-      return async (ctx, next) => { // 取参
-        const commentId = ctx.request.params.commentId
-        const userId = ctx.user.id
+      return async (ctx: any, next: any) => { // 取参
+        const { commentId }: { commentId: number | undefined } = ctx.request.params
+        const userId = (ctx.user as IUser).id
         if (!commentId) {
           const error = new Error(errorType.NO_PARAMS)
           return ctx.app.emit('error', error, ctx)
@@ -77,10 +79,10 @@ const verifyPermission = (tableName) => {
         await next()
       }
     case 'moment':
-      return async (ctx, next) => {
+      return async (ctx: any, next: any) => {
         // 取参
-        const momentId = ctx.request.params.momentId
-        const userId = ctx.user.id
+        const { momentId }: { momentId: number | undefined } = ctx.request.params
+        const userId = (ctx.user as IUser).id
         if (!momentId) {
           const error = new Error(errorType.NO_PARAMS)
           return ctx.app.emit('error', error, ctx)
