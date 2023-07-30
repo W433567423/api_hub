@@ -12,7 +12,7 @@ class MomentController {
      * @author: tutu
      * @time: 2023/7/27 15:50
      */
-  async publish (ctx) {
+  async publish (ctx: any) {
     // 获取用户数据
     const userId = (ctx.user as IUser).id
     const content: string | undefined = ctx.request.body.content
@@ -42,7 +42,7 @@ class MomentController {
      * @author: tutu
      * @time: 2023/7/27 15:52
      */
-  async getMomentDetailById (ctx) {
+  async getMomentDetailById (ctx: any) {
     const { momentId }: { momentId: number | undefined } = ctx.params
     if (!momentId) {
       const error = new Error(errorType.NO_PARAMS)
@@ -64,7 +64,7 @@ class MomentController {
      * @author: tutu
      * @time: 2023/7/27 16:29
      */
-  async getMomentDetailByIds (ctx) {
+  async getMomentDetailByIds (ctx: any) {
     const { limit, page }: { limit: string | undefined, page: string | undefined } = ctx.request.query
     if (!limit || !page) {
       const error = new Error(errorType.NO_PARAMS)
@@ -86,7 +86,7 @@ class MomentController {
      * @author: tutu
      * @time: 2023/7/27 17:35
      */
-  async changeMomentById (ctx) {
+  async changeMomentById (ctx: any) {
     const { momentId }: { momentId: number } = ctx.request.params
     const { content }: { content: string | undefined } = ctx.request.body
     if (!content) {
@@ -109,7 +109,7 @@ class MomentController {
      * @author: tutu
      * @time: 2023/7/27 17:07
      */
-  async delMomentById (ctx) {
+  async delMomentById (ctx: any) {
     // 删除
     const { momentId }: { momentId: number | undefined } = ctx.request.params
     if (!momentId) {
@@ -131,7 +131,7 @@ class MomentController {
      * @author: tutu
      * @time: 2023/7/28 17:19
      */
-  async addLabels (ctx) {
+  async addLabels (ctx: any) {
     const { labels }: { labels: ILabelWMoment [] } = ctx
     const { momentId }: { momentId: number } = ctx.params
     // await MomentService.linkMomentWithLabel(momentId, labels)
