@@ -1,5 +1,6 @@
 import { type ILoginParams } from '../service/type'
 
+const errorType = require('../constants/error-types')
 const service = require('../service/user.service')
 
 class UserController {
@@ -13,7 +14,11 @@ class UserController {
      */
   async registry (ctx: any): Promise<void> {
     // 获取用户请求得到参数
-    const user: ILoginParams = ctx.request.body
+    const user: ILoginParams | undefined = ctx.request.body
+    if (!user) {
+      const error = new Error(errorType.NO_PARAMS)
+      return ctx.app.emit('error', error, ctx)
+    }
 
     // 将用户保存到数据库
     await service.create(user)

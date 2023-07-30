@@ -2,8 +2,8 @@ const errorType = require('../constants/error-types')
 const LabelService = require('../service/label.service')
 
 class LabelController {
-  async newLabel (ctx) {
-    const { title } = ctx.request.body
+  async newLabel (ctx: any) {
+    const { title }: { title: string | undefined } = ctx.request.body
     if (!title) {
       const error = new Error(errorType.NO_PARAMS)
       return ctx.app.emit('error', error, ctx)
