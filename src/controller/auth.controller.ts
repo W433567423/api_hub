@@ -1,10 +1,12 @@
+import { type IUser } from '../service/type'
+
 const jwt = require('jsonwebtoken')
 
 const { PRIVATE_KEY, PUBLIC_KEY } = require('../app/config')
 
 class AuthController {
   async login (ctx) {
-    const { id, username } = ctx.user
+    const { id, username } = ctx.user as IUser
     // 非对称加密生成token
     const token = jwt.sign({ id, username }, PRIVATE_KEY, {
       expiresIn: 60 * 60 * 24 * 7,

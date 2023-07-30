@@ -1,3 +1,8 @@
+interface IUser {
+  id: number
+  username: string
+}
+
 interface ILoginParams {
   username: string
   password: string
@@ -8,4 +13,4 @@ interface ILabelWMoment {
   title: string
 }
 
-export type { ILoginParams, ILabelWMoment }
+export type { IUser, ILoginParams, ILabelWMoment }
