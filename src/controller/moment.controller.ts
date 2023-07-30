@@ -1,4 +1,4 @@
-import type { ILabelWMoment } from '../service/type'
+import type { ILabelWMoment, IUser } from '../service/type'
 
 const errorType = require('../constants/error-types')
 const MomentService = require('../service/moment.service')
@@ -14,7 +14,7 @@ class MomentController {
      */
   async publish (ctx) {
     // 获取用户数据
-    const userId: number = ctx.user.id
+    const userId = (ctx.user as IUser).id
     const content: string | undefined = ctx.request.body.content
     if (!content) {
       const error = new Error(errorType.NO_PARAMS)
@@ -94,7 +94,7 @@ class MomentController {
       return ctx.app.emit('error', error, ctx)
     }
 
-    const data = await MomentService.updateMomentByIdAndUserId(ctx.user.id, momentId, content)
+    const data = await MomentService.updateMomentByIdAndUserId((ctx.user as IUser).id, momentId, content)
 
     ctx.body = {
       msg: '更新moment成功', data
