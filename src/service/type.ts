@@ -3,4 +3,9 @@ interface ILoginParams {
   password: string
 }
 
-export type { ILoginParams }
+interface ILabelWMoment {
+  id: number
+  title: string
+}
+
+export type { ILoginParams, ILabelWMoment }

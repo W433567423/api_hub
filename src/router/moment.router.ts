@@ -13,7 +13,7 @@ momentRouter.post('/getMomentDetailList', controller.getMomentDetailByIds)
 momentRouter.patch('/changeMomentDetail/:momentId', verifyAuth, verifyPermission('moment'), controller.changeMomentById)
 momentRouter.delete('/delMoment/:momentId', verifyAuth, verifyPermission('moment'), controller.delMomentById)
 
-momentRouter.post('/:momentId/addLabels', verifyAuth, isExistLabels, controller.addLabels)
+momentRouter.post('/:momentId/addLabels', verifyAuth, verifyPermission('moment'), isExistLabels, controller.addLabels)
 
 module.exports = momentRouter
 export {}
