@@ -8,7 +8,9 @@ class LabelController {
       const error = new Error(errorType.NO_PARAMS)
       return ctx.app.emit('error', error, ctx)
     }
-    await LabelService.newLabel(title)
+    if (!await LabelService.isLabelExist) {
+      await LabelService.newLabel(title)
+    }
 
     ctx.body = {
       msg: '新增标签成功'

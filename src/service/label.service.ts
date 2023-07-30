@@ -27,10 +27,10 @@ class LabelService {
   }
 
   // 给moment添加多个标签
-  async addLabelsToMomentId (labels: string[]) {
-    const sqlString = `${labels}`
-    await db.execute(sqlString)
-  }
+  // async addLabelsToMomentId (labels: string[]) {
+  //   const sqlString = `${labels}`
+  //   await db.execute(sqlString)
+  // }
 }
 
 module.exports = new LabelService()
