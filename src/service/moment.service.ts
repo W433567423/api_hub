@@ -4,7 +4,7 @@ const db = require('../app/database')
 
 class MomentService {
   // 插入数据到数据库
-  async insertData (userId: string, content: string) {
+  async insertData (userId: number, content: string) {
     const sqlString = 'INSERT INTO moment (user_id,content) VALUES(?,?);'
     await db.execute(sqlString, [userId, content])
   }

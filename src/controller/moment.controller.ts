@@ -14,8 +14,8 @@ class MomentController {
      */
   async publish (ctx) {
     // 获取用户数据
-    const userId = ctx.user.id
-    const content = ctx.request.body.content
+    const userId: number = ctx.user.id
+    const content: string | undefined = ctx.request.body.content
     if (!content) {
       const error = new Error(errorType.NO_PARAMS)
       return ctx.app.emit('error', error, ctx)
@@ -43,12 +43,13 @@ class MomentController {
      * @time: 2023/7/27 15:52
      */
   async getMomentDetailById (ctx) {
-    if (!ctx.params.momentId) {
+    const { momentId }: { momentId: number | undefined } = ctx.params
+    if (!momentId) {
       const error = new Error(errorType.NO_PARAMS)
       return ctx.app.emit('error', error, ctx)
     }
     try {
-      ctx.body = { msg: await MomentService.getMomentDetailById(Number(ctx.params.momentId)) }
+      ctx.body = { msg: await MomentService.getMomentDetailById(momentId) }
     } catch {
       const error = new Error(errorType.SQL_ERROR)
       return ctx.app.emit('error', error, ctx)
@@ -64,7 +65,7 @@ class MomentController {
      * @time: 2023/7/27 16:29
      */
   async getMomentDetailByIds (ctx) {
-    const { limit, page } = ctx.request.query
+    const { limit, page }: { limit: string | undefined, page: string | undefined } = ctx.request.query
     if (!limit || !page) {
       const error = new Error(errorType.NO_PARAMS)
       return ctx.app.emit('error', error, ctx)
@@ -86,7 +87,7 @@ class MomentController {
      * @time: 2023/7/27 17:35
      */
   async changeMomentById (ctx) {
-    const { content } = ctx.request.body
+    const { content }: { content: string | undefined } = ctx.request.body
     if (!content) {
       const error = new Error(errorType.NO_PARAMS)
       return ctx.app.emit('error', error, ctx)
@@ -109,7 +110,11 @@ class MomentController {
      */
   async delMomentById (ctx) {
     // 删除
-    const momentId = ctx.request.params.momentId
+    const momentId: number | undefined = ctx.request.params.momentId
+    if (!momentId) {
+      const error = new Error(errorType.NO_PARAMS)
+      return ctx.app.emit('error', error, ctx)
+    }
     await MomentService.delMomentById(momentId)
 
     ctx.body = {
