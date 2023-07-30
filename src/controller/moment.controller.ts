@@ -87,14 +87,14 @@ class MomentController {
      * @time: 2023/7/27 17:35
      */
   async changeMomentById (ctx: any) {
-    const { momentId }: { momentId: number } = ctx.request.params
+    const { momentId }: { momentId: number | undefined } = ctx.request.params
     const { content }: { content: string | undefined } = ctx.request.body
     if (!content) {
       const error = new Error(errorType.NO_PARAMS)
       return ctx.app.emit('error', error, ctx)
     }
 
-    const data = await MomentService.updateMomentByIdAndUserId((ctx.user as IUser).id, momentId, content)
+    const data = await MomentService.updateMomentByIdAndUserId((ctx.user as IUser).id, momentId as number, content)
 
     ctx.body = {
       msg: '更新moment成功', data
@@ -133,16 +133,16 @@ class MomentController {
      */
   async addLabels (ctx: any) {
     const { labels }: { labels: ILabelWMoment [] } = ctx
-    const { momentId }: { momentId: number } = ctx.params
+    const { momentId }: { momentId: number | undefined } = ctx.params
     // await MomentService.linkMomentWithLabel(momentId, labels)
     const addLabels: ILabelWMoment[] = []
     try {
       for (const label of labels) {
-        const flag = Boolean(await MomentService.isLinkMomentWithLabel(momentId, label))
+        const flag = Boolean(await MomentService.isLinkMomentWithLabel(momentId as number, label))
         // tag是否已经关联moment
         if (!flag) {
           addLabels.push(label)
-          await MomentService.linkMomentWithLabel(momentId, label)
+          await MomentService.linkMomentWithLabel(momentId as number, label)
         }
       }
     } catch {
