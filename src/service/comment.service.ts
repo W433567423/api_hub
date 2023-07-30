@@ -24,7 +24,7 @@ class CommentService {
   }
 
   // 修改comment by id
-  async changeCommentbyId (commentId: number, content: string) {
+  async changeCommentById (commentId: number, content: string) {
     console.log(content, commentId)
     const sqlString = 'UPDATE  comment SET content = ? WHERE id = ?;'
     return (await db.execute(sqlString, [content, commentId]))[0]

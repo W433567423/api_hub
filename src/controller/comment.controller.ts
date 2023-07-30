@@ -70,7 +70,7 @@ class CommentController {
       ctx.app.emit('error', error, ctx)
     }
     try {
-      const dbRes = await CommentService.changeCommentbyId(commentId as number, content as string)
+      const dbRes = await CommentService.changeCommentById(commentId as number, content as string)
       // 获取用户数据
       ctx.body = { msg: '修改comment成功', data: dbRes }
     } catch (e) {
