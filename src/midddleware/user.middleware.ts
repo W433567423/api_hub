@@ -12,7 +12,7 @@ const md5Password = require('../utils/password-handle')
  * @author: tutu
  * @time: 2023/7/24 12:12
  */
-const verifyUser = async (ctx, next) => {
+const verifyUser = async (ctx: any, next: any) => {
   // 获取用户名,密码
   const { username, password } = ctx.request.body as ILoginParams
 
@@ -40,8 +40,8 @@ const verifyUser = async (ctx, next) => {
  * @author: tutu
  * @time: 2023/7/24 13:59
  */
-const handlePassword = async (ctx, next) => {
-  const { password } = ctx.request.body
+const handlePassword = async (ctx: any, next: any) => {
+  const { password }: { password: string } = ctx.request.body
   ctx.request.body.password = md5Password(String(password))
   await next()
 }
