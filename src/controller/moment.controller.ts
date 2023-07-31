@@ -1,7 +1,11 @@
 import type { ILabelWMoment, IUser } from '../service/type'
+import { type IMulterFileObj } from './type'
+
+const { uploadFile } = require('../utils')
 
 const errorType = require('../constants/error-types')
 const MomentService = require('../service/moment.service')
+const FileService = require('../service/file.service')
 
 class MomentController {
   /**
@@ -160,6 +164,40 @@ class MomentController {
     }
 
     ctx.body = { msg: `新增标签<${(addLabels.map(item => item.title).join(','))}>成功,其余标签已存在` }
+  }
+
+  /**
+   * DONE
+   * @description: 事件: publish image for moment
+   * @params: {}
+   * @return: undefined
+   * @author: tutu
+   * @time: 2023/7/31 15:29
+   */
+  async publishImage (ctx: any) {
+    const msg = 'success'
+    const { id: userId } = ctx.user as IUser
+    const { momentId }: { momentId: string | undefined } = ctx.query
+    const files = ctx.req.files as IMulterFileObj[]
+    const pictureUrls: string[] = []
+    if (!momentId) {
+      const error = new Error(errorType.NO_PARAMS)
+      return ctx.app.emit('error', error, ctx)
+    }
+
+    try {
+      for (const file of files) {
+        const { path, mimetype, size, filename } = file
+        const { Location } = await uploadFile({ Key: `hub/picture/${filename.slice(10)}-picture.png`, FilePath: path })
+        const pictureUrl = `https://${Location}`
+        pictureUrls.push(pictureUrl)
+        await FileService.insertPictureLink(pictureUrl, mimetype, `${size}bit`, filename, userId, momentId)
+      }
+    } catch {
+      const error = new Error(errorType.SQL_ERROR)
+      ctx.app.emit('error', error, ctx)
+    }
+    ctx.body = { msg, data: { pictureUrls } }
   }
 }
 
