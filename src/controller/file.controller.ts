@@ -7,6 +7,7 @@ const fs = require('fs')
 
 class FileController {
   async saveAvatarInfo (ctx: any) {
+    let msg = ''
     const { id: userId } = ctx.user as IUser
     const { path, mimetype, size } = ctx.req.file
     const { username } = ctx.user as IUser
@@ -15,8 +16,10 @@ class FileController {
       const isExistsAvatar = await FileService.isExistsAvatarLink(userId)
       if (isExistsAvatar) {
         // update
+        msg = '头像更新成功'
         await FileService.setAvatarLink(cosRes.Location, mimetype, size as string + 'bit', userId, 'update')
       } else {
+        msg = '头像上传成功'
         await FileService.setAvatarLink(cosRes.Location, mimetype, size as string + 'bit', userId, 'new')
       }
     } catch {
@@ -24,7 +27,7 @@ class FileController {
       ctx.app.emit('error', error, ctx)
     }
     fs.unlinkSync(path)
-    ctx.body = { msg: '头像更新成功成功' }
+    ctx.body = { msg, data: { url: cosRes.Location } }
   }
 }
 
