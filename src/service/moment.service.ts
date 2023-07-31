@@ -24,7 +24,8 @@ class MomentService {
                ), NULL)
               FROM comment c
                      LEFT JOIN user cu ON c.user_id = cu.id
-              WHERE m.id = c.moment_id)                                                                       comments
+              WHERE m.id = c.moment_id)                                                                       comments,
+             (SELECT JSON_ARRAYAGG(p.picture_url) FROM picture p WHERE m.id = p.moment_id)                    pictures
 
       FROM moment m
              LEFT JOIN user u ON m.user_id = u.id
@@ -39,13 +40,14 @@ class MomentService {
   // 获取moment列表
   async getMomentDetailByIds (page: number, limit: number) {
     const sqlString = `
-      SELECT m.id      AS                                                                id,
-             m.content AS                                                                content,
-             m.createAt                                                                  createTime,
-             m.updateAt                                                                  updateTime,
-             (SELECT COUNT(*) from comment c where c.moment_id = m.id)                   commentCount,
-             (SELECT COUNT(*) from moment_label ml where ml.moment_id = m.id)            labelCount,
-             JSON_OBJECT('userId', u.id, 'username', u.username, 'avatar', u.avatar_url) user
+      SELECT m.id      AS                                                                  id,
+             m.content AS                                                                  content,
+             m.createAt                                                                    createTime,
+             m.updateAt                                                                    updateTime,
+             (SELECT COUNT(*) from comment c where c.moment_id = m.id)                     commentCount,
+             (SELECT COUNT(*) from moment_label ml where ml.moment_id = m.id)              labelCount,
+             JSON_OBJECT('userId', u.id, 'username', u.username, 'avatar', u.avatar_url)   user,
+             (SELECT JSON_ARRAYAGG(p.picture_url) FROM picture p WHERE m.id = p.moment_id) pictures
       FROM moment m
              LEFT JOIN user u ON m.user_id = u.id
       LIMIT ${page}, ${limit};
