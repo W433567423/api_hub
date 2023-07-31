@@ -20,23 +20,24 @@ class FileController {
     let msg = ''
     const { id: userId, username } = ctx.user as IUser
     const { path, mimetype, size, filename } = ctx.req.file
-    const cosRes = await uploadFile({ Key: `hub/avatar/${username}-avatar.png`, FilePath: path })
+    const { Location } = await uploadFile({ Key: `hub/avatar/${username}-avatar.png`, FilePath: path })
+    const avatarUrl = `https://${Location}`
     try {
       const isExistsAvatar = await FileService.isExistsAvatarLink(userId)
       if (isExistsAvatar) {
         // update
         msg = '头像更新成功'
-        await FileService.setAvatarLink(cosRes.Location, mimetype, size as string + 'bit', filename, userId, 'update')
+        await FileService.setAvatarLink(avatarUrl, mimetype, size as string + 'bit', filename, userId, 'update')
       } else {
         msg = '头像上传成功'
-        await FileService.setAvatarLink(cosRes.Location, mimetype, size as string + 'bit', filename, userId, 'new')
+        await FileService.setAvatarLink(avatarUrl, mimetype, size as string + 'bit', filename, userId, 'new')
       }
-      await UserService.setAvatarUrl(cosRes.Location, userId)
+      await UserService.setAvatarUrl(avatarUrl, userId)
     } catch {
       const error = new Error(errorType.SQL_ERROR)
       ctx.app.emit('error', error, ctx)
     }
-    ctx.body = { msg, data: { url: cosRes.Location } }
+    ctx.body = { msg, data: { url: avatarUrl } }
   }
 
   /**
