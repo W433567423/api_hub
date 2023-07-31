@@ -15,7 +15,11 @@ const {
   MYSQL_DATABASE,
   MYSQL_USER,
   MYSQL_PASSWORD,
-  VERIFY_KEY
+  VERIFY_KEY,
+  COS_SECRET_ID,
+  COS_SECRET_KEY,
+  COS_BUCKET_NAME,
+  COS_BUCKET_REGION
 } = process.env
 
 module.exports = {
@@ -28,5 +32,11 @@ module.exports = {
 
   VERIFY_KEY,
   PRIVATE_KEY,
-  PUBLIC_KEY
+  PUBLIC_KEY,
+
+  COS_SECRET_ID,
+  COS_SECRET_KEY,
+  COS_BUCKET_NAME,
+  COS_BUCKET_REGION
 }
+export {}

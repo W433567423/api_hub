@@ -2,7 +2,7 @@ import { type ILoginParams } from '../service/type'
 
 const errorType = require('../constants/error-types')
 const service = require('../service/user.service')
-const md5Password = require('../utils/password-handle')
+const { md5Password } = require('../utils/index')
 
 /**
  * DONE

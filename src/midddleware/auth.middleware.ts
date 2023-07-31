@@ -5,7 +5,7 @@ const errorType = require('../constants/error-types')
 const userService = require('../service/user.service')
 const MomentService = require('../service/moment.service')
 const CommentService = require('../service/comment.service')
-const md5Password = require('../utils/password-handle')
+const { md5Password } = require('../utils')
 const { PUBLIC_KEY } = require('../app/config')
 
 const verifyLogin = async (ctx: any, next: any) => {
