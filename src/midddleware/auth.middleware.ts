@@ -37,7 +37,6 @@ const verifyLogin = async (ctx: any, next: any) => {
     return ctx.app.emit('error', error, ctx)
   }
   ctx.user = dbRes[0][0]
-
   await next()
 }
 

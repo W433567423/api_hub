@@ -2,6 +2,7 @@ import { type IUser } from '../service/type'
 
 const errorType = require('../constants/error-types')
 const FileService = require('../service/file.service')
+const UserService = require('../service/user.service')
 const { uploadFile } = require('../utils')
 const fs = require('fs')
 const { AVATAR_PATH } = require('../constants/file_path')
@@ -30,6 +31,7 @@ class FileController {
         msg = '头像上传成功'
         await FileService.setAvatarLink(cosRes.Location, mimetype, size as string + 'bit', filename, userId, 'new')
       }
+      await UserService.setAvatarUrl(cosRes.Location, userId)
     } catch {
       const error = new Error(errorType.SQL_ERROR)
       ctx.app.emit('error', error, ctx)

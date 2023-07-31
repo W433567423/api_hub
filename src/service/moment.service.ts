@@ -28,8 +28,6 @@ class MomentService {
 
       FROM moment m
              LEFT JOIN user u ON m.user_id = u.id
-        #              LEFT JOIN comment c ON c.moment_id = m.id
-#              LEFT JOIN user cu ON cu.id = c.user_id
              LEFT JOIN moment_label ml ON ml.moment_id = m.id
              LEFT JOIN label l ON l.id = ml.label_id
       WHERE m.id = ?
@@ -41,13 +39,13 @@ class MomentService {
   // 获取moment列表
   async getMomentDetailByIds (page: number, limit: number) {
     const sqlString = `
-      SELECT m.id      AS                                                     id,
-             m.content AS                                                     content,
-             m.createAt                                                       createTime,
-             m.updateAt                                                       updateTime,
-             (SELECT COUNT(*) from comment c where c.moment_id = m.id)        commentCount,
-             (SELECT COUNT(*) from moment_label ml where ml.moment_id = m.id) labelCount,
-             JSON_OBJECT('userId', u.id, 'username', u.username)              user
+      SELECT m.id      AS                                                                id,
+             m.content AS                                                                content,
+             m.createAt                                                                  createTime,
+             m.updateAt                                                                  updateTime,
+             (SELECT COUNT(*) from comment c where c.moment_id = m.id)                   commentCount,
+             (SELECT COUNT(*) from moment_label ml where ml.moment_id = m.id)            labelCount,
+             JSON_OBJECT('userId', u.id, 'username', u.username, 'avatar', u.avatar_url) user
       FROM moment m
              LEFT JOIN user u ON m.user_id = u.id
       LIMIT ${page}, ${limit};

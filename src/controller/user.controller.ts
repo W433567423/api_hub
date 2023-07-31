@@ -28,7 +28,7 @@ class UserController {
   }
 
   async test (ctx: any) {
-    ctx.body = { msg: 'success' }
+    ctx.body = { msg: 'success', data: ctx.user }
   }
 }
 

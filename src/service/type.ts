@@ -1,6 +1,7 @@
 interface IUser {
   id: number
   username: string
+  avatar_url?: string
 }
 
 interface ILoginParams {

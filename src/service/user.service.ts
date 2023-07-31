@@ -11,10 +11,16 @@ class UserService {
     await db.execute(sqlString, [username, password])
   }
 
-  // 查询用户是否注册过
+  // 查询用户
   async getUserByName (username) {
     const sqlString = 'SELECT * FROM user WHERE user.username =?;'
     return db.execute(sqlString, [username])
+  }
+
+  // 给用户添加头像
+  async setAvatarUrl (url: string, userId: number) {
+    const sqlString = 'UPDATE user SET avatar_url = ? WHERE id = ?'
+    return db.execute(sqlString, [url, userId])
   }
 }
 
