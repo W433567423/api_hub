@@ -20,7 +20,7 @@ class MomentService {
              JSON_OBJECT('userId', u.id, 'username', u.username)                                              author,
              (SELECT IF(COUNT(c.id), JSON_ARRAYAGG(
                JSON_OBJECT('id', c.id, 'content', c.content, 'createTime', c.createAt, 'commentUser',
-                           JSON_OBJECT('userId', cu.id, 'username', cu.username))
+                           JSON_OBJECT('userId', cu.id, 'username', cu.username, 'avatar', cu.avatar_url))
                ), NULL)
               FROM comment c
                      LEFT JOIN user cu ON c.user_id = cu.id
