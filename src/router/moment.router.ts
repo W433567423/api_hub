@@ -1,6 +1,6 @@
 const Router = require('koa-router')
 const controller = require('../controller/moment.controller')
-const { photosHandler } = require('../midddleware/file.middleware')
+const { photosHandler, photosResize } = require('../midddleware/file.middleware')
 const { verifyAuth, verifyPermission } = require('../midddleware/auth.middleware')
 const { isExistLabels } = require('../midddleware/label.middleware')
 
@@ -16,7 +16,7 @@ momentRouter.delete('/delMoment/:momentId', verifyAuth, verifyPermission('moment
 
 momentRouter.post('/:momentId/addLabels', verifyAuth, verifyPermission('moment'), isExistLabels, controller.addLabels)
 
-momentRouter.post('/publishImage', verifyAuth, photosHandler, controller.publishImage)
+momentRouter.post('/publishImage', verifyAuth, photosHandler, photosResize, controller.publishImage)
 
 module.exports = momentRouter
 export {}
