@@ -11,22 +11,31 @@ class FileService {
     return (await db.execute(sqlString, [userId]))[0].length
   }
 
-  async setAvatarLink (avatarUrl: string, mimetype: string, size: string, userId: number, type: string) {
+  async setAvatarLink (avatarUrl: string, mimetype: string, size: string, filename: string, userId: number, type: string) {
     let sqlString = ''
     switch (type) {
       case 'new':
-        sqlString = `INSERT INTO avatar (avatar_url, mimetype, size, user_id)
-                     VALUES (?, ?, ?, ?);`
+        sqlString = `INSERT INTO avatar (avatar_url, mimetype, size, filename, user_id)
+                     VALUES (?, ?, ?, ?, ?);`
         break
       case 'update':
         sqlString = `UPDATE avatar
                      SET avatar_url = ?,
                          mimetype   = ?,
-                         size= ?
+                         size       = ?,
+                         filename   = ?
                      WHERE user_id = ?;`
         break
     }
-    await db.execute(sqlString, [avatarUrl, mimetype, size, userId])
+    await db.execute(sqlString, [avatarUrl, mimetype, size, filename, userId])
+  }
+
+  // get avatar by userId
+  async getAvatarByUserId (userId: number) {
+    const sqlString = `SELECT avatar_url, mimetype, size, filename
+                       FROM avatar
+                       WHERE user_id = ?`
+    return (await db.execute(sqlString, [userId]))[0][0]
   }
 
   // // link user and avatar
