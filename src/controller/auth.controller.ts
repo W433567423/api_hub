@@ -5,35 +5,6 @@ const jwt = require('jsonwebtoken')
 const { PRIVATE_KEY, PUBLIC_KEY } = require('../app/config')
 
 class AuthController {
-  /**
-   * @openapi
-   * /login:
-   *   post:
-   *     description: 用户登入
-   *     tags: [用户系统]
-   *     produces:
-   *       - application/json
-   *     parameters:
-   *       - name: username
-   *         description: 用户名.
-   *         in: formData
-   *         required: true
-   *         type: string
-   *       - name: password
-   *         description: 用户密码.
-   *         in: formData
-   *         required: true
-   *         type: string
-   *     responses:
-   *       200:
-   *         description: 登入成功
-   *         schema:
-   *           type: object
-   *           id: number
-   *           username: string
-   *           token: string
-   *
-   */
   async login (ctx: any) {
     console.log(ctx.request)
     const { id, username } = ctx.user as IUser
